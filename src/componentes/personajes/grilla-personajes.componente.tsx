@@ -14,7 +14,7 @@ export const useSelector: TypedUseSelectorHook<IRootState> =useReduxSelector
  */
 const GrillaPersonajes:FC = ():JSX.Element => {
 
-    const {personajes, status} = useSelector(state => state.personajes);
+    const {personajes, status} = useSelector(state => state.personajes); //! state.personajes.personajes & state.personajes.status
 
     if (status === "CARGANDO") return <div>Cargando personajes...</div>
     if (!personajes || personajes.length === 0) return <></>
@@ -26,6 +26,7 @@ const GrillaPersonajes:FC = ():JSX.Element => {
                     name= {personaje.name}
                     image= {personaje.image}
                     id= {personaje.id}
+                    key= {personaje.id} //!
                  />
             )
         })}

@@ -4,6 +4,7 @@ import { IRootState } from "../store/store";
 import Personaje from "../types/personaje.types";
 import { buscarPersonajeAPI } from "../services/personaje.services"
 
+
 interface buscarPersonajeParams {
     info:{
         count:number,
@@ -30,12 +31,14 @@ export interface BuscarPersonajesErrorAction extends Action{
     error: string
 }
 
-export interface CambiarPaginaExitoAction extends Action{
-    type: "CAMBIAR_PAGINA_EXITO"
+export interface LimpiarFiltroAction extends Action{
+    type: "LIMPIAR_FILTRO",
 }
 
+
+
 //creamos type que incluye atodas las interfaces anteriores
-export type PersonajesAction = BuscarPersonajesAction | BuscarPersonajesExitoAction | BuscarPersonajesErrorAction |  CambiarPaginaExitoAction;
+export type PersonajesAction = BuscarPersonajesAction | BuscarPersonajesExitoAction | BuscarPersonajesErrorAction | LimpiarFiltroAction ;
 
 //ThunkAction genericos
 //1- corresponde al tipo que devuelve la funcion
@@ -68,11 +71,12 @@ export const buscarPersonajesError:ActionCreator<BuscarPersonajesErrorAction> = 
     }
 }
 
-export const cambiarPaginaExito: ActionCreator<CambiarPaginaExitoAction> = () => {
+export const limpiarFiltro:ActionCreator<LimpiarFiltroAction> = () => {
     return {
-        type: "CAMBIAR_PAGINA_EXITO"
+        type: "LIMPIAR_FILTRO",
     }
 }
+
 
 const MIN_CARACTERES = 3;
 
@@ -93,12 +97,12 @@ export const buscarPersonajesThunk = (name?: string): BuscarPersonajesThunkActio
 export const cambiarPaginaThunk= (pagina: string): BuscarPersonajesThunkAction => {
     return async (dispatch) => {
          
-        if(pagina === "undefined"){return cambiarPaginaExito()} //! al pedo
         try{
-            const dataPage = await buscarPersonajeAPI(pagina);
-            dispatch(buscarPersonajesExito(dataPage));
+            const dataAPI = await buscarPersonajeAPI(pagina);
+            dispatch(buscarPersonajesExito(dataAPI));
         } catch(e){
             dispatch(buscarPersonajesError(e));
         }
     }
 }
+

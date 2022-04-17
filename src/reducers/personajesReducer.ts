@@ -46,16 +46,17 @@ const initialState: PersonajesState = {
                     personajes: action.data.results,
                     apiInfo: action.data.info
                 }
-            case "CAMBIAR_PAGINA_EXITO":
-                return{
-                    ...state
-                }
             case "BUSCAR_PERSONAJES_ERROR":
                 return{
                     ...state,
                     status:"COMPLETADO_CON_ERROR",
                     personajes: [], //opcional
                     error: action.error
+                }
+            case "LIMPIAR_FILTRO":
+                return{
+                    ...state,
+                    busqueda: ''
                 }
             default:
                 return state;

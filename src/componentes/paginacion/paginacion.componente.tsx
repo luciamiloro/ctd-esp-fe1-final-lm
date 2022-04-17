@@ -20,11 +20,11 @@ const Paginacion = ():JSX.Element => {
     //const nextPage = ()=> fetch(apiInfo.next);
 
     const prev= apiInfo.prev// null o ?page=2
-    const prevContent = prev === null? "undefined":((prev.split('?'))[1]) //! nunca va a pasar porque esta disabled
+    const prevContent = prev !== null? ((prev.split('?'))[1]):""; 
     const prevPage = ()=>dispatch(cambiarPaginaThunk(prevContent));
 
     const next= apiInfo.next// null o ?page=2
-    const nextContent = next === null? "undefined":((next.split('?'))[1]) //!
+    const nextContent = next !== null? ((next.split('?'))[1]):""
     const nextPage = ()=>dispatch(cambiarPaginaThunk(nextContent)); 
 
 /*     console.log(apiInfo.prev)// null 

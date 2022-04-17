@@ -1,6 +1,7 @@
 import {combineReducers} from "@reduxjs/toolkit";
 import { composeWithDevTools } from 'redux-devtools-extension';
 import personajesReducer from "../reducers/personajesReducer";
+import favoritosReducer from "../reducers/favoritosReducer";
 
 // Importamos applyMiddleware de Redux, para poder agregar Thunk o Saga como Middleware
 import { createStore, applyMiddleware } from 'redux';
@@ -9,8 +10,8 @@ import thunk from "redux-thunk"
 
 
 const rootReducer = combineReducers({
-   personajes: personajesReducer 
-   //TODO: favoritos:personajesFavoritosReducer  
+   personajes: personajesReducer ,
+   personajesFavoritos: favoritosReducer 
 });
 
 export type IRootState = ReturnType<typeof rootReducer>;
