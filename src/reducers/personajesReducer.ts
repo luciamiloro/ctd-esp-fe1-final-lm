@@ -35,7 +35,6 @@ const initialState: PersonajesState = {
             case "BUSCAR_PERSONAJES":
                 return {
                     ...state,
-                    busqueda: action.name,
                     status: "CARGANDO",
                     error: null
                 }
@@ -57,6 +56,11 @@ const initialState: PersonajesState = {
                 return{
                     ...state,
                     busqueda: ''
+                }
+            case "FILTRAR_PERSONAJES":
+                return{
+                    ...state,
+                    busqueda: action.name
                 }
             default:
                 return state;

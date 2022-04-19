@@ -1,10 +1,11 @@
 import './boton-favorito.css';
 /**
- * Boton que indica si un elemento es favorito o no, y da la posibilidad de marcarlo/desmarcarlo
- * 
- * Deberás tipar las propiedades si usas este componente
- * 
- * @returns un JSX element 
+ * Boton que indica si un elemento es favorito o no, y da 
+ * la posibilidad de marcarlo/desmarcarlo
+ * @author Lucia Miloro
+ * @param {boolean} esFavorito
+ * @param {Function} onClick  
+ * @returns {JSX.Element}
  */
 
 type BotonProps = {

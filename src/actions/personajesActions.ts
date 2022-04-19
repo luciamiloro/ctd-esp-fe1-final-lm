@@ -18,7 +18,6 @@ interface buscarPersonajeParams {
 //creacion de interfaces de ts
 export interface BuscarPersonajesAction extends Action{
     type: "BUSCAR_PERSONAJES",
-    name: string
 }
 
 export interface BuscarPersonajesExitoAction extends Action{
@@ -35,10 +34,16 @@ export interface LimpiarFiltroAction extends Action{
     type: "LIMPIAR_FILTRO",
 }
 
+export interface FiltrarPersonajesAction extends Action{
+    type: "FILTRAR_PERSONAJES",
+    name: string
+}
+
+
 
 
 //creamos type que incluye atodas las interfaces anteriores
-export type PersonajesAction = BuscarPersonajesAction | BuscarPersonajesExitoAction | BuscarPersonajesErrorAction | LimpiarFiltroAction ;
+export type PersonajesAction = BuscarPersonajesAction | BuscarPersonajesExitoAction | BuscarPersonajesErrorAction | LimpiarFiltroAction | FiltrarPersonajesAction ;
 
 //ThunkAction genericos
 //1- corresponde al tipo que devuelve la funcion
@@ -50,21 +55,27 @@ interface BuscarPersonajesThunkAction extends ThunkAction<void, IRootState, unkn
 
 //TODO: interface buscarPersonajeParams
 
-export const buscarPersonajes:ActionCreator<BuscarPersonajesAction> = (name:string) => {
+export const buscarPersonajes:ActionCreator<BuscarPersonajesAction> = () => {
     return {
-        type: "BUSCAR_PERSONAJES",
-        name: name 
+        type: "BUSCAR_PERSONAJES"
     }
 }
 
-export const buscarPersonajesExito:ActionCreator<BuscarPersonajesExitoAction> = (data:buscarPersonajeParams) => {
+export const filtrarPersonajes: ActionCreator<FiltrarPersonajesAction> = (name:string) => {
+    return {
+        type: "FILTRAR_PERSONAJES",
+        name: name
+    }
+}
+
+const buscarPersonajesExito:ActionCreator<BuscarPersonajesExitoAction> = (data:buscarPersonajeParams) => {
     return {
         type: "BUSCAR_PERSONAJES_EXITO",
         data: data
     }
 }
 
-export const buscarPersonajesError:ActionCreator<BuscarPersonajesErrorAction> = (error: string) => {
+const buscarPersonajesError:ActionCreator<BuscarPersonajesErrorAction> = (error: string) => {
     return {
         type: "BUSCAR_PERSONAJES_ERROR",
         error: error
@@ -79,27 +90,14 @@ export const limpiarFiltro:ActionCreator<LimpiarFiltroAction> = () => {
 
 
 const MIN_CARACTERES = 3;
-
+//busca personaje impactando el valor de busqueda
 export const buscarPersonajesThunk = (name?: string): BuscarPersonajesThunkAction => {
     return async (dispatch) => {
-        //if (name.length < MIN_CARACTERES) return null;
         if(name && name.length < MIN_CARACTERES) {return null};
-        dispatch(buscarPersonajes(name));
+        dispatch(buscarPersonajes());
         try{
             const personajes = await buscarPersonajeAPI(name);
             dispatch(buscarPersonajesExito(personajes));
-        } catch(e){
-            dispatch(buscarPersonajesError(e));
-        }
-    }
-}
-
-export const cambiarPaginaThunk= (pagina: string): BuscarPersonajesThunkAction => {
-    return async (dispatch) => {
-         
-        try{
-            const dataAPI = await buscarPersonajeAPI(pagina);
-            dispatch(buscarPersonajesExito(dataAPI));
         } catch(e){
             dispatch(buscarPersonajesError(e));
         }

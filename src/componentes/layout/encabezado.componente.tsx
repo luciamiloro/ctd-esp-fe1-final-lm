@@ -3,7 +3,7 @@ import './encabezado.css';
 
 /**
  * Encabezado que contiene los links para navegar entre las páginas
- *
+ * @author Lucia Miloro
  * Uso: `<Encabezado />`
  *
  * @returns {JSX.Element}

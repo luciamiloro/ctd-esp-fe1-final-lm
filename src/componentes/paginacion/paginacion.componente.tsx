@@ -1,16 +1,14 @@
 import './paginacion.css';
 import { TypedUseSelectorHook, useSelector as useReduxSelector, useDispatch } from 'react-redux';
 import {IRootState} from "../../store/store"
-import {cambiarPaginaThunk} from "../../actions/personajesActions"
+import {buscarPersonajesThunk} from "../../actions/personajesActions"
 
 
 export const useSelector: TypedUseSelectorHook<IRootState> =useReduxSelector
 /**
  * Componente que contiene los botones para paginar
- * 
- * Deberás agregar las propiedades necesarias para que funcione correctamente
- * 
- * @returns un JSX element 
+ * @author Lucia Miloro
+ * @returns {JSX.Element} 
  */
 const Paginacion = ():JSX.Element => {
 
@@ -21,13 +19,13 @@ const Paginacion = ():JSX.Element => {
 
     const prev= apiInfo.prev// null o ?page=2
     const prevContent = prev !== null? ((prev.split('?'))[1]):""; 
-    const prevPage = ()=>dispatch(cambiarPaginaThunk(prevContent));
+    const prevPage = ()=>dispatch(buscarPersonajesThunk(prevContent));
 
     const next= apiInfo.next// null o ?page=2
     const nextContent = next !== null? ((next.split('?'))[1]):""
-    const nextPage = ()=>dispatch(cambiarPaginaThunk(nextContent)); 
+    const nextPage = ()=>dispatch(buscarPersonajesThunk(nextContent)); 
 
-/*     console.log(apiInfo.prev)// null 
+/*  console.log(apiInfo.prev)// null 
     console.log(apiInfo.prev) // ?page=2 */
 
     return <div className="paginacion">

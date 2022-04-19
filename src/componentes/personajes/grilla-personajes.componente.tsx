@@ -7,17 +7,15 @@ import React, {FC} from 'react'
 export const useSelector: TypedUseSelectorHook<IRootState> =useReduxSelector
 /**
  * Grilla de personajes para la pagina de inicio
- * 
- * Deberás agregar las funciones necesarias para mostrar y paginar los personajes
- * 
- * @returns un JSX element 
+ * @author Lucia Miloro
+ * @returns {JSX.Element}
  */
 const GrillaPersonajes:FC = ():JSX.Element => {
 
-    const {personajes, status} = useSelector(state => state.personajes); //! state.personajes.personajes & state.personajes.status
+    const {personajes, status} = useSelector(state => state.personajes); 
 
     if (status === "CARGANDO") return <div>Cargando personajes...</div>
-    if (!personajes || personajes.length === 0) return <></>
+    if (!personajes || personajes.length === 0) return <>No hay personajes que coincidan con la busqueda</>  //! ver si funca que no explote todo cuando buscas cualca
 
     return <div className="grilla-personajes">
         {personajes.map((personaje)=> {
@@ -26,12 +24,10 @@ const GrillaPersonajes:FC = ():JSX.Element => {
                     name= {personaje.name}
                     image= {personaje.image}
                     id= {personaje.id}
-                    key= {personaje.id} //!
+                    key= {personaje.id} 
                  />
             )
         })}
-       
-
     </div>
 }
  

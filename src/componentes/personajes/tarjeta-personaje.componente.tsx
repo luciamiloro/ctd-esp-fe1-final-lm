@@ -6,25 +6,24 @@ import { agregarFavorito, sacarFavorito} from "../../actions/personajesfavoritos
 import { useDispatch } from "react-redux";
 
 /**
- * Tarjeta para cada personaje dentro de la grilla de personajes. 
- * 
- * Deberás agregar las propiedades necesarias para mostrar los datos de los personajes
- * 
- * @returns un JSX element 
+ * Componente que renderiza la tarjeta para cada personaje dentro de la grilla de personajes. 
+ * @author Lucia Miloro
+ * @param {Personaje} personaje 
+ * @returns {JSX.Element}
  */
-interface tarjetaProps {
-    name: string,
-    image: string,
-    id: number,
-}
 
-const TarjetaPersonaje = ({name, image, id}:tarjetaProps):JSX.Element => {
+const TarjetaPersonaje = ({name, image, id}:Personaje):JSX.Element => {
 
     const dispatch = useDispatch();
 
     const favoritos = useSelector((state) => state.personajesFavoritos.favoritos);
     let esFavorito = favoritos.some((favorito) => favorito.id === id); 
 
+    /**
+     * Función que al clickear el boton se ejecuta, 
+     * marcando como favorito al personaje en el caso de que no lo sea y viceversa 
+     * @author Lucia Miloro
+     */
     const handleClick = () => {
         if (!esFavorito){
             dispatch(agregarFavorito({id, name, image}));
@@ -37,7 +36,7 @@ const TarjetaPersonaje = ({name, image, id}:tarjetaProps):JSX.Element => {
         <img src={image} alt={name} />
         <div className="tarjeta-personaje-body">
             <span>{name}</span>
-             <BotonFavorito esFavorito={esFavorito} onClick={handleClick} /> {/* //TODO */}
+             <BotonFavorito esFavorito={esFavorito} onClick={handleClick} /> 
         </div>
     </div>
 }

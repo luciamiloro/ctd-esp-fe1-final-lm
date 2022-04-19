@@ -17,6 +17,12 @@ const PaginaInicio = () => {
 
     const dispatch = useDispatch();
 
+    /**
+     * Funcion que se ejecuta cuando queremos limpiar el filtro del input 
+     * despachando una accion que trae a los personajes de la api y 
+     * otra que cambia el valor de la propiedad busqueda del estado global a un string vacio
+     * @author Lucia Miloro
+     */
     const handleClick = ()=> {
         dispatch(buscarPersonajesThunk());
         dispatch(limpiarFiltro());
